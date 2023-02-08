@@ -72,7 +72,7 @@ const sendEmailToEmployee = ({ name, email, password }) => {
         service: 'gmail',
         auth: {
             user: process.env.EMAIL,
-            pass: process.env.PASS,
+            pass: 'wlgkxpflvdwikahz',
         },
     };
     // Create a transporter object
