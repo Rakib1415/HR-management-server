@@ -1,8 +1,9 @@
 module.exports = {
-    HOST: process.env.HOST,
-    USER: process.env.USER,
-    PASSWORD: process.env.PASSWORD,
-    DB: process.env.DB,
+    HOST: 'containers-us-west-49.railway.app',
+    USER: 'postgres',
+    PASSWORD: 'NdXM8IXrkypKHX4TCLNd',
+    PGPORT: '6532',
+    DB: 'railway',
     dialect: 'postgres',
     pool: {
         max: 5,
