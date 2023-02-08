@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 4000;
 db.sequelize
     .sync()
     .then(() => {
-        app.listen(PORT, () => {
+        app.listen(`0.0.0.0:${PORT}`, () => {
             console.log(`Listening on port ${PORT}`);
         });
         console.log('Database Connected!');
