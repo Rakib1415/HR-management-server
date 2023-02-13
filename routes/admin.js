@@ -11,6 +11,8 @@ router.get('/employees', authenticate, adminController.getAllEmployee);
 
 router.get('/employees/:id', authenticate, adminController.getEmployeeById);
 
+router.put('/employees/:id', authenticate, adminController.updateEmployee);
+
 router.delete('/employees/:id', authenticate, adminController.deleteEmployeeById);
 
 router.get('/absence-requests', authenticate, adminController.getAllAbsenceRequest);

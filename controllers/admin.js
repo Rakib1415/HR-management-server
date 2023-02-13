@@ -92,6 +92,34 @@ const getEmployeeById = async (req, res, next) => {
     }
 };
 
+const updateEmployee = async (req, res, next) => {
+    const { id } = req.params;
+    const { name, department, position } = req.body;
+    try {
+        const modifiedEmployee = await Employee.findOne({
+            where: {
+                id,
+            },
+        });
+        if (!modifiedEmployee) {
+            throw createError(401, 'There is no absence request corresponding this id');
+        }
+        const modifiedUser = await User.findOne({
+            where: {
+                id: modifiedEmployee.userId,
+            },
+        });
+        modifiedEmployee.department = department || modifiedEmployee.department;
+        modifiedEmployee.position = position || modifiedEmployee.position;
+        modifiedUser.name = name || modifiedUser.name;
+        await modifiedEmployee.save();
+        await modifiedUser.save();
+        res.status(200).json({ message: 'successfully Updated!' });
+    } catch (err) {
+        return next(createError(err.status || 500, err.message));
+    }
+};
+
 const deleteEmployeeById = async (req, res, next) => {
     const { id } = req.params;
     try {
@@ -177,6 +205,7 @@ module.exports = {
     createEmployee,
     getAllEmployee,
     getEmployeeById,
+    updateEmployee,
     deleteEmployeeById,
     getAllAbsenceRequest,
     approveAbsenceStatus,

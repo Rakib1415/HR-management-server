@@ -8,6 +8,7 @@ const Admin = db.admins;
 
 const authenticate = async (req, _res, next) => {
     let token = req.headers.authorization;
+    console.log(token);
     try {
         if (!token) {
             throw createError(401, 'unauthorized');

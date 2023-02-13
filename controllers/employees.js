@@ -92,15 +92,20 @@ const updateAbsenceRequestById = async (req, res, next) => {
     const { id } = req.params;
     const { startData, endDate, reason } = req.body;
     try {
-        const absenceRequest = await AbsenceRequest.findByPk(id);
+        const absenceRequest = await AbsenceRequest.findOne({
+            where: {
+                employeeId: req.employee.id,
+                id,
+            },
+        });
         if (!absenceRequest) {
             throw createError(401, 'There is no absence request corresponding this id');
         }
-        absenceRequest.startData = startData;
-        absenceRequest.endDate = endDate;
-        absenceRequest.reason = reason;
+        absenceRequest.startData = startData || absenceRequest.startData;
+        absenceRequest.endDate = endDate || absenceRequest.endDate;
+        absenceRequest.reason = reason || absenceRequest.reason;
         await absenceRequest.save();
-        res.status(200).json({ message: 'success' });
+        res.status(200).json({ message: 'successfully Updated!' });
     } catch (err) {
         return next(createError(err.status || 500, err.message));
     }
